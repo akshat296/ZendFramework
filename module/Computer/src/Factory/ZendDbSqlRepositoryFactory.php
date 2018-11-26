@@ -22,7 +22,6 @@ class ZendDbSqlRepositoryFactory implements FactoryInterface
             $container->get(AdapterInterface::class),
             new ReflectionHydrator(),
             new Post('', '')
-          
         );
     }
 

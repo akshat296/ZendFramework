@@ -38,12 +38,13 @@ class PostFieldset extends Fieldset
                 'label' => 'Post Text',
             ],
         ]);
-        $this->add([
-            'type'=> 'text',
-            'name'=> 'Address',
-            'option'=>[
-                'label'=>'Address',
+          $this->add([
+            'type' => 'Number',
+            'name' => 'Name',
+            'options' => [
+                'label' => 'Contact Name',
             ],
         ]);
+
     }
 }

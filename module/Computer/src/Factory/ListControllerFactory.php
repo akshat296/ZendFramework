@@ -11,6 +11,7 @@ use Computer\Controller\ListController;
 use Computer\Model\PostRepositoryInterface;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
+
 class ListControllerFactory implements FactoryInterface
 {
     /**
@@ -23,4 +24,5 @@ class ListControllerFactory implements FactoryInterface
     {
         return new ListController($container->get(PostRepositoryInterface::class));
     }
+
 }

@@ -36,8 +36,8 @@ class ZendDbSqlCommand implements PostCommandInterface
     {
         $insert = new Insert('posts');
         $insert->values([
-            'title' =>  $post->getTitle(),
-            'text'  =>  $post->getText(),
+            'title' => $post->getTitle(),
+            'text' => $post->getText(),
         ]);
 
         $sql = new Sql($this->db);
@@ -46,7 +46,7 @@ class ZendDbSqlCommand implements PostCommandInterface
 
         if (! $result instanceof ResultInterface) {
             throw new RuntimeException(
-                'Database error occurred during blog post insert operation'
+                'Database error occurred during computer post insert operation'
             );
         }
 
@@ -82,7 +82,7 @@ class ZendDbSqlCommand implements PostCommandInterface
 
         if (! $result instanceof ResultInterface) {
             throw new RuntimeException(
-                'Database error occurred during blog post update operation'
+                'Database error occurred during computer post update operation'
             );
         }
 
@@ -112,5 +112,4 @@ class ZendDbSqlCommand implements PostCommandInterface
 
         return true;
     }
-   
 }

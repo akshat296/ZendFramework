@@ -4,7 +4,6 @@ namespace Computer;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
-use Zend\Db\Adapter\AdapterInterface;
 
 return [
     /**
@@ -14,15 +13,12 @@ return [
         'aliases' => [
             Model\PostRepositoryInterface::class => Model\ZendDbSqlRepository::class,
             Model\PostCommandInterface::class => Model\ZendDbSqlCommand::class,
-            Model\LoginCommandInterface::class => Model\ZendDbLoginSqlRepository::class
         ],
         'factories' => [
             Model\PostRepository::class => InvokableFactory::class,
             Model\ZendDbSqlRepository::class => Factory\ZendDbSqlRepositoryFactory::class,
             Model\PostCommand::class => InvokableFactory::class,
-            Model\LoginCommand::class => InvokableFactory::class,
             Model\ZendDbSqlCommand::class => Factory\ZendDbSqlCommandFactory::class,
-            Model\ZendDbLoginSqlRepository::class => Factory\ZendDbLoginSqlRepositoryFactory::class
         ],
     ],
     
@@ -34,7 +30,6 @@ return [
             Controller\ListController::class => Factory\ListControllerFactory::class,
             Controller\WriteController::class => Factory\WriteControllerFactory::class,
             Controller\DeleteController::class => Factory\DeleteControllerFactory::class,
-            Controller\LoginController::class => Factory\LoginControllerFactory::class,
         ],
     ],
 
@@ -48,7 +43,7 @@ return [
                 'options' => [
                     'route' => '/computer',
                     'defaults' => [
-                        'controller' => Controller\LoginController::class,
+                        'controller' => Controller\ListController::class,
                         'action'     => 'index',
                     ],
                 ],
@@ -57,14 +52,55 @@ return [
                  * Child routes de Computer
                  */
                 'child_routes'  => [
+                    // Lister
+                    'detail' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route'    => '/:id',
+                            'defaults' => [
+                                'action' => 'detail',
+                            ],
+                            'constraints' => [
+                                'id' => '[1-9]\d*',
+                            ],
+                        ],
+                    ],
                     // Ajouter
-                    'create' => [
+                    'add' => [
                         'type' => Literal::class,
                         'options' => [
-                            'route'    => '/create',
+                            'route'    => '/add',
                             'defaults' => [
-                                'controller' => Controller\LoginController::class,
-                                'action'     => 'create',
+                                'controller' => Controller\WriteController::class,
+                                'action'     => 'add',
+                            ],
+                        ],
+                    ],
+                    // Editer
+                    'edit' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route'    => '/edit/:id',
+                            'defaults' => [
+                                'controller' => Controller\WriteController::class,
+                                'action'     => 'edit',
+                            ],
+                            'constraints' => [
+                                'id' => '[1-9]\d*',
+                            ],
+                        ],
+                    ],
+                    // Supprimer
+                    'delete' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/delete/:id',
+                            'defaults' => [
+                                'controller' => Controller\DeleteController::class,
+                                'action'     => 'delete',
+                            ],
+                            'constraints' => [
+                                'id' => '[1-9]\d*',
                             ],
                         ],
                     ],

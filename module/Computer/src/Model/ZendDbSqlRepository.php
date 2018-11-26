@@ -15,7 +15,6 @@ use Zend\Db\Adapter\Driver\ResultInterface;
 use Zend\Db\ResultSet\HydratingResultSet;
 use Zend\Db\Sql\Sql;
 
-
 class ZendDbSqlRepository implements PostRepositoryInterface
 {
     /**
@@ -65,9 +64,6 @@ class ZendDbSqlRepository implements PostRepositoryInterface
 
         $resultSet = new HydratingResultSet($this->hydrator, $this->postPrototype);
         $resultSet->initialize($result);
-        echo "<pre>";
-        var_dump($resultSet);
-        echo "</pre>";
         //var_dump($resultSet);
     return $resultSet;
     }
@@ -84,10 +80,10 @@ class ZendDbSqlRepository implements PostRepositoryInterface
 
         $statement = $sql->prepareStatementForSqlObject($select);
         $result    = $statement->execute();
-        
+
         if (! $result instanceof ResultInterface || ! $result->isQueryResult()) {
             throw new RuntimeException(sprintf(
-                'Failed retrieving blog post with identifier "%s"; unknown database error.',
+                'Failed retrieving computer post with identifier "%s"; unknown database error.',
                 $id
             ));
         }
@@ -98,15 +94,13 @@ class ZendDbSqlRepository implements PostRepositoryInterface
 
         if (! $post) {
             throw new InvalidArgumentException(sprintf(
-                'Blog post with identifier "%s" not found.',
+                'Computer post with identifier "%s" not found.',
                 $id
             ));
         }
 
         return $post;
     }
-
- 
 
     /**
      * @param $name

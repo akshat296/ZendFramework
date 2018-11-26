@@ -10,6 +10,7 @@ namespace Computer\Controller;
 use Computer\Model\PostRepositoryInterface;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Helper\ViewModel;
+use InvalidArgumentException;
 use Zend\Paginator\Paginator;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
@@ -32,7 +33,7 @@ class ListController extends AbstractActionController
     public function indexAction()
     {
         return [
-           
+            'posts' => $this->postRepository->findAllPosts(),
         ];
     }
     
